@@ -26,6 +26,10 @@ type CatData[] struct {
 	Width int `json:"width"`
 }
 
+type FormData[] struct {
+	breed_id string
+}
+
 func (c *MainController) Get() {
 	c.Data["Website"] = "beego.me"
 	c.Data["Email"] = "astaxie@gmail.com"
@@ -35,8 +39,23 @@ func (c *MainController) Get() {
 func (c *CatController) Get() {
 	//response, err := http.Get(`https://jsonplaceholder.typicode.com/posts`)
 
+	// log.Println("---------------")
+	// log.Println(c.GetString("breed"))
+	// log.Println(c.GetString("order"))
+
+	// breed := c.GetString("breed")
+	// order := c.GetString("order")
+
+	breed := "sfol"
+	order := "asc"
+
+	log.Println(breed)
+	log.Println(order)
+
 	req := httplib.Get(`https://api.thecatapi.com/v1/images/search`)
 	req.Header("x-api-key","880a5248-54b0-4ba7-a7cd-cc8b89a979d8")
+	req.Param("breed_id",breed)
+	req.Param("order",order)
 	req.Param("limit","10")
 
 	response, err := req.Response()
@@ -48,13 +67,7 @@ func (c *CatController) Get() {
 	// fmt.Println(response)
 
 	bytes, errRead := ioutil.ReadAll(response.Body)
-
-	// defer func() {
-	// 	e := response.Body.Close()
-	// 	if e != nil {
-	// 		log.Fatal(e)
-	// 	}
-	// }()
+	
 
 	if errRead != nil {
 		log.Fatal(errRead)
@@ -76,7 +89,7 @@ func (c *CatController) Get() {
 	// c.Data["height"] = catdata
 	// c.Data["width"] = catdata
 
-	c.Data["catdata"] = &catdata
+	c.Data["catdata"] = catdata
 
 	log.Printf("%+v", &catdata)
  

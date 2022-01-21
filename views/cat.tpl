@@ -74,11 +74,30 @@
 <body>
   <header>
     <h1 class="logo">Welcome to Beego</h1>
+    <div>
+      <form>
+
+        <select name="breed" id="breed">
+          <option value="tang">Turkish Angora</option>
+          <option value="sfol">Scottish Fold</option>
+        </select>
+
+        <select name="order" id="order">
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
+        </select>
+      
+      </form>
+
+      
+    </div>
+    <br/>
+    <br/>
     <div class="description">
-      Beego is a simple & powerful Go web framework which is inspired by tornado and sinatra.
 
       {{range $i,$val := .catdata}}
-        <img src="{{$val.Url}}"/>
+        <p>{{$val.Url}}</p>
+        <img style="height: 180px; width: 300px" src="{{$val.Url}}"/>
       {{end}}
     </div>
   </header>
@@ -94,6 +113,37 @@
   </footer>
   <div class="backdrop"></div>
 
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+  
+  <script type="text/javascript">
+      (function() {
+          $breed = $("#breed");
+          $order = $("#order");
+          $breed.on('change', function() {
+              $.ajax({
+                  type: "GET",
+                  url: "/cat",
+                  data: {"breed": $breed.val(), "order": $order.val()} // The data passed to / by POST method
+                  
+              }).done(function(msg) {
+                  // Render your result
+                  // $("#result").html(msg.Val);
+                  // window.location='http://localhost:8080/cat'
+              });
+          });
+
+          $order.on('change', function() {
+              $.ajax({
+                  type: "GET",
+                  url: "/cat",
+                  data: {"breed": $breed.val(), "order": $order.val()} // The data passed to / by POST method
+              }).done(function(msg) {
+                  // Render your result
+                  // $("#result").html(msg.Val);
+              });
+          });
+      })();
+  </script>
   <script src="/static/js/reload.min.js"></script>
 </body>
 </html>
