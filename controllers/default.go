@@ -43,11 +43,11 @@ func (c *CatController) Get() {
 	// log.Println(c.GetString("breed"))
 	// log.Println(c.GetString("order"))
 
-	// breed := c.GetString("breed")
-	// order := c.GetString("order")
+	breed := c.GetString("breed")
+	order := c.GetString("order")
 
-	breed := "sfol"
-	order := "asc"
+	// breed := "sfol"
+	// order := "asc"
 
 	log.Println(breed)
 	log.Println(order)
@@ -92,7 +92,10 @@ func (c *CatController) Get() {
 	c.Data["catdata"] = catdata
 
 	log.Printf("%+v", &catdata)
+
  
 	c.TplName = "cat.tpl"
+
+	
 }
 
