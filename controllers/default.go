@@ -34,6 +34,11 @@ type FormData[] struct {
 	breed_id string
 }
 
+type CategoryData[] struct {
+	Id int `json:"id"`
+	Name string `json:"name"`
+}
+
 func (c *MainController) Get() {
 	c.Data["Website"] = "beego.me"
 	c.Data["Email"] = "astaxie@gmail.com"
@@ -43,17 +48,23 @@ func (c *MainController) Get() {
 func (c *FrontController) Get() {
 	breed := c.GetString("breed")
 	order := c.GetString("order")
+	cate := c.GetString("category")
 
 	log.Println(breed)
 	log.Println(order)
+	log.Println(cate)
 
 	req := httplib.Get(`https://api.thecatapi.com/v1/images/search`)
 	req.Header("x-api-key","880a5248-54b0-4ba7-a7cd-cc8b89a979d8")
 	req.Param("breed_id",breed)
-	req.Param("order",order)
+	req.Param("order",order) 
+	req.Param("category_ids",cate)
 	req.Param("limit","10")
 
+	category_req := httplib.Get(`https://api.thecatapi.com/v1/categories`)
+
 	response, err := req.Response()
+	category_response, _ := category_req.Response()
 
 	if err != nil {
 		log.Fatal(err)
@@ -61,6 +72,7 @@ func (c *FrontController) Get() {
 
 
 	bytes, errRead := ioutil.ReadAll(response.Body)
+	category_bytes, _ := ioutil.ReadAll(category_response.Body)
 	
 
 	if errRead != nil {
@@ -68,17 +80,25 @@ func (c *FrontController) Get() {
 	}
 
 	var catdata CatData
+	var category CategoryData
 
 	errUnmarshal := json.Unmarshal(bytes, &catdata)
+	category_errUnmarshal := json.Unmarshal(category_bytes, &category)
 
 	if errUnmarshal != nil {
 		log.Fatal(errUnmarshal)
 	}
 
+	if category_errUnmarshal != nil {
+		log.Fatal(category_errUnmarshal)
+	}
+
 
 	c.Data["catdata"] = catdata
+	c.Data["category"] = category
 
 	log.Printf("%+v", &catdata)
+	log.Printf("%+v", &category)
 
 	c.TplName = "cat.html"
 }
@@ -92,17 +112,20 @@ func (c *CatController) Get() {
 
 	breed := c.GetString("breed")
 	order := c.GetString("order")
+	cate := c.GetString("category")
 
 	// breed := "sfol"
 	// order := "asc"
 
 	log.Println(breed)
 	log.Println(order)
+	log.Println(cate)
 
 	req := httplib.Get(`https://api.thecatapi.com/v1/images/search`)
 	req.Header("x-api-key","880a5248-54b0-4ba7-a7cd-cc8b89a979d8")
 	req.Param("breed_id",breed)
 	req.Param("order",order)
+	req.Param("category_ids",cate)
 	req.Param("limit","10")
 
 	response, err := req.Response()

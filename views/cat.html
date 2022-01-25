@@ -46,7 +46,7 @@
           <form>
             <label>Order</label>
             <select class="form-select" aria-label="Default select example" name="order" id="order">
-              <option value="asc">Random</option>
+              <option value="">Random</option>
               <option value="asc">Ascending</option>
               <option value="desc">Descending</option>
             </select>
@@ -67,18 +67,21 @@
       </div>
       <div class="row">
         <div class="col-lg-6 mt-4">
-          <!-- <form>
+          <form>
             <label>Category</label>
-            <select class="form-select" aria-label="Default select example" name="breed" id="breed">
-              <option value="tang">Turkish Angora</option>
-              <option value="sfol">Scottish Fold</option>
+            <select class="form-select" aria-label="Default select example" name="category" id="category">
+              <option value="">None</option>
+              {{range $i,$val := .category}}
+              <option value="{{$val.Id}}">{{$val.Name}}</option>
+              {{end}}
             </select>
-          </form> -->
+          </form>
         </div>
         <div class="col-lg-6 mt-4">
           <form>
             <label>Breed</label>
             <select class="form-select" aria-label="Default select example" name="breed" id="breed">
+              <option value="">None</option>
               <option value="tang">Turkish Angora</option>
               <option value="sfol">Scottish Fold</option>
             </select>
@@ -106,41 +109,23 @@
   
   <script type="text/javascript">
       (function() {
-          $breed = $("#breed");
-          $order = $("#order");
-          $breed.on('change', function() {
+        $breed = $("#breed");
+        $order = $("#order");
+        $category = $("#category");
+          
+
+        $(document).on('change', 'select', function() {
               $.ajax({
                   type: "GET",
                   url: "/cat",
-                  data: {"breed": $breed.val(), "order": $order.val()}
-                  
-              }).done(function(response) {
-                    let data = response;
-                    console.log(data);
-                    let html_data = "";
-
-                    $.each(data, function(key, value) {
-                      html_data += '<div class="col-md-4 mb-5 ">',
-                      html_data += '<img src="' + value.url + '" width="200" height="150"></img>',
-                      html_data += '</div>'
-                    })
-
-                    $("#result").html(html_data);
-              });
-          });
-
-          $order.on('change', function() {
-              $.ajax({
-                  type: "GET",
-                  url: "/cat",
-                  data: {"breed": $breed.val(), "order": $order.val()}
+                  data: {"breed": $breed.val(), "order": $order.val(), "category": $category.val()}
               }).done(function(response) {
                   let data = response;
                   console.log(data);
                   let html_data = "";
 
                   $.each(data, function(key, value) {
-                    html_data += '<div class="col-md-4 mb-5 ">',
+                    html_data += '<div class="col-md-4 mb-2 ">',
                     html_data += '<img src="' + value.url + '" width="200" height="150"></img>',
                     html_data += '</div>'
                   })
