@@ -47,7 +47,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-6 mt-4">
+        <div class="col-lg-4 mt-4">
           <form>
             <label>Order</label>
             <select class="form-select" aria-label="Default select example" name="order" id="order">
@@ -58,7 +58,7 @@
             
           </form>
         </div>
-        <div class="col-lg-6 mt-4">
+        <div class="col-lg-4 mt-4">
           <form>
             <label>Type</label>
             <select class="form-select" aria-label="Default select example" name="mime_types" id="mime_types">
@@ -68,10 +68,8 @@
             </select>
           </form>
         </div>
-        
-      </div>
-      <div class="row">
-        <div class="col-lg-6 mt-4">
+
+        <div class="col-lg-4 mt-4">
           <form>
             <label>Category</label>
             <select class="form-select" aria-label="Default select example" name="category" id="category">
@@ -82,7 +80,11 @@
             </select>
           </form>
         </div>
-        <div class="col-lg-6 mt-4">
+        
+      </div>
+      <div class="row">
+        
+        <div class="col-lg-4 mt-4">
           <form>
             <label>Breed</label>
             <select class="form-select" aria-label="Default select example" name="breed" id="breed">
@@ -94,10 +96,8 @@
           
           </form>
         </div>
-        
-      </div>
-      <div class="row">
-        <div class="col-lg-6 mt-4">
+
+        <div class="col-lg-4 mt-4">
           <form>
             <label>Per Page</label>
             <select class="form-select" aria-label="Default select example" id="limit" name="limit">
@@ -107,12 +107,15 @@
             </select>
           </form>
         </div>
-        <div class="col-lg-6 mt-4">
+        <div class="col-lg-4 mt-4">
           <br/>
-          <button id="moreButton" value="1" type="button" class="btn btn-danger" style="width: 100%;">Danger</button>
+          <button id="moreButton" value="0" type="button" class="btn btn-danger" style="width: 100%;"><i class="bi bi-arrow-clockwise" style="color: white;"></i>  More</button>
         </div>
+        
       </div>
-      <br/>
+      <div class="row">
+        
+      </div>
       <br/>
       <div class="row" id="result">
 
@@ -159,13 +162,13 @@
 
           $(document).on('click', 'button', function() {
 
-              $page = parseInt($('#moreButton').val())+1;
+              $page = document.getElementById("moreButton").value = parseInt($('#moreButton').val())+1;
               console.log($page)
 
               $.ajax({
                   type: "GET",
                   url: "/cat",
-                  data: {"breed": $breed.val(), "order": $order.val(), "category": $category.val(), "limit": $limit.val(), "mime_types": $mime_types.val()}
+                  data: {"breed": $breed.val(), "order": $order.val(), "category": $category.val(), "limit": $limit.val(), "mime_types": $mime_types.val(), "page": $page}
               }).done(function(response) {
                   let data = response;
                   console.log(data);

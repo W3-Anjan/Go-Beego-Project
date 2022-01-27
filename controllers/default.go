@@ -134,6 +134,7 @@ func (c *CatController) Get() {
 	cate := c.GetString("category")
 	limit := c.GetString("limit")
 	mime_types := c.GetString("mime_types")
+	page := c.GetString("page")
 
 	// breed := "sfol"
 	// order := "asc"
@@ -143,6 +144,7 @@ func (c *CatController) Get() {
 	log.Println(cate)
 	log.Println(limit)
 	log.Println(mime_types)
+	log.Println(page)
 
 	req := httplib.Get(`https://api.thecatapi.com/v1/images/search`)
 	req.Header("x-api-key","880a5248-54b0-4ba7-a7cd-cc8b89a979d8")
@@ -151,6 +153,7 @@ func (c *CatController) Get() {
 	req.Param("category_ids",cate)
 	req.Param("limit",limit)
 	req.Param("mime_types",mime_types)
+	req.Param("page",page)
 
 	response, err := req.Response()
 
