@@ -14,8 +14,8 @@
 - Run the following commands on your terminal:
 
 ``` bash
-- go get github.com/astaxie/beego
-- go get github.com/beego/bee
+- go get -u github.com/beego/beego/v2
+- go get -u github.com/beego/bee/v2
 ```
 
 ### For running the project:
