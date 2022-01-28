@@ -134,7 +134,7 @@ func (c *FrontController) Get() {
 	log.Printf("%+v", &category)
 	log.Printf("%+v", &breeddata)
 
-	c.TplName = "cat.html"
+	c.TplName = "cat.tpl"
 }
 
 func (c *CatController) Get() {
@@ -206,7 +206,7 @@ func (c *CatController) Get() {
 	log.Printf("%+v", &catdata)
 
 	c.Data["json"] = &catdata
-	c.TplName = "cat.html"
+	c.TplName = "cat.tpl"
 
 	c.ServeJSON()
 
