@@ -156,6 +156,11 @@
         </div>
         {{end}}
       </div>
+      <div class="row" id="loading" style="display: none;">
+        <div class="col-md-12 mb-2 text-center">
+          <h1>Loading...</h1>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -284,12 +289,6 @@
       }
     };
 
-
-
-    /* * * * * * * * * * * * * * * * *
-    * Initialization
-    * * * * * * * * * * * * * * * * */
-
     var init = function() {
     Pagination.Init(document.getElementById('pagination'), {
         size: 30, // pages size
@@ -303,14 +302,21 @@
 
     function paginationClick(pageNum){
       $page = pageNum-1
-      console.log($page);
-      $(document).on('click', 'a', function() {
+
+      $breed = $("#breed");
+      $order = $("#order");
+      $category = $("#category");
+      $limit = $("#limit");
+      $mime_types = $("#mime_types");
+
+      $('#loading').show();
+      $('#result').hide();
 
       $.ajax({
           type: "GET",
           url: "/cat",
-          data: {"breed": $breed.val(), "order": $order.val(), "category": $category.val(), "limit": $limit.val(), "mime_types": $mime_types.val(), "page": $page}
-        }).done(function(response) {
+          data: {"breed": $breed.val(), "order": $order.val(), "category": $category.val(), "limit": $limit.val(), "mime_types": $mime_types.val(), "page": $page},
+          success: function( response ) {
             let data = response;
             console.log(data);
 
@@ -323,6 +329,9 @@
 
               $("#result").html(html_data);
 
+              $('#loading').hide();
+              $('#result').show();
+
               return;
             }
 
@@ -333,15 +342,21 @@
             })
 
             $("#result").html(html_data);
-        }).error(function(err) {
-          let html_data = "";
-          html_data += '<div class="col-md-12 mb-2 text-center">',
-          html_data += '<h1>Error occured! Please try again.</h1>',
-          html_data += '</div>'
+            $('#loading').hide();
+            $('#result').show();
+          },
+          error: function( error ) {
+            let html_data = "";
+            html_data += '<div class="col-md-12 mb-2 text-center">',
+            html_data += '<h1>Error occured! Please try again.</h1>',
+            html_data += '</div>'
 
-          $("#result").html(html_data);
+            $("#result").html(html_data);
+            $('#loading').hide();
+            $('#result').show();
+          }
+
         });
-      });
     }
   </script>
   
@@ -354,6 +369,9 @@
         $mime_types = $("#mime_types");
 
         $(document).on('change', 'select', function() {
+
+              $('#loading').show();
+              $('#result').hide();
 
               if($order.val() === ""){
                 $("#pagination").css("display", "none")
@@ -369,6 +387,7 @@
                   url: "/cat",
                   data: {"breed": $breed.val(), "order": $order.val(), "category": $category.val(), "limit": $limit.val(), "mime_types": $mime_types.val()}
               }).done(function(response) {
+
                   let data = response;
                   console.log(data);
 
@@ -381,6 +400,9 @@
 
                     $("#result").html(html_data);
 
+                    $('#loading').hide();
+                    $('#result').show();
+
                     return;
                   }
 
@@ -391,6 +413,10 @@
                   })
 
                   $("#result").html(html_data);
+
+                  $('#loading').hide();
+                  $('#result').show();
+
               }).error(function(err) {
                 let html_data = "";
                 html_data += '<div class="col-md-12 mb-2 text-center">',
@@ -398,6 +424,8 @@
                 html_data += '</div>'
 
                 $("#result").html(html_data);
+                $('#loading').hide();
+                $('#result').show();
               });
           });
 
@@ -405,6 +433,9 @@
 
               $page = document.getElementById("moreButton").value = parseInt($('#moreButton').val())+1;
               console.log($page)
+
+              $('#loading').show();
+              $('#result').hide();
 
               $.ajax({
                   type: "GET",
@@ -423,6 +454,9 @@
 
                     $("#result").html(html_data);
 
+                    $('#loading').hide();
+                    $('#result').show();
+
                     return;
                   }
 
@@ -433,6 +467,8 @@
                   })
 
                   $("#result").html(html_data);
+                  $('#loading').hide();
+                  $('#result').show();
               }).error(function(err) {
                 let html_data = "";
                 html_data += '<div class="col-md-12 mb-2 text-center">',
@@ -440,6 +476,8 @@
                 html_data += '</div>'
 
                 $("#result").html(html_data);
+                $('#loading').hide();
+                $('#result').show();
               });
           });
 

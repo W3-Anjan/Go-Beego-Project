@@ -54,7 +54,6 @@ func (c *FrontController) Get() {
 	breed := c.GetString("breed")
 	order := c.GetString("order")
 	cate := c.GetString("category")
-	// limit := c.GetString("limit")
 	mime_types := c.GetString("mime_types")
 
 	log.Println(breed)
@@ -73,42 +72,58 @@ func (c *FrontController) Get() {
 	category_req := httplib.Get(`https://api.thecatapi.com/v1/categories`)
 	breed_req := httplib.Get(`https://api.thecatapi.com/v1/breeds`)
 
-	response, err := req.Response()
+	response, _ := req.Response()
 	category_response, _ := category_req.Response()
 	breed_response, _ := breed_req.Response()
 
-	if err != nil {
-		log.Fatal(err)
-	}
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+
+	// if category_err != nil {
+	// 	log.Fatal(err)
+	// }
+
+	// if breed_err != nil {
+	// 	log.Fatal(breed_err)
+	// }
 
 
-	bytes, errRead := ioutil.ReadAll(response.Body)
+	bytes, _ := ioutil.ReadAll(response.Body)
 	category_bytes, _ := ioutil.ReadAll(category_response.Body)
 	breed_bytes, _ := ioutil.ReadAll(breed_response.Body)
 
-	if errRead != nil {
-		log.Fatal(errRead)
-	}
+	// if errRead != nil {
+	// 	log.Fatal(errRead)
+	// }
+
+	// if category_errRead != nil {
+	// 	log.Fatal(errRead)
+	// }
+
+	// if breed_errRead != nil {
+	// 	log.Fatal(errRead)
+	// }
 
 	var catdata CatData
 	var category CategoryData
 	var breeddata BreedData
 
-	errUnmarshal := json.Unmarshal(bytes, &catdata)
-	category_errUnmarshal := json.Unmarshal(category_bytes, &category)
-	breed_errUnmarshal := json.Unmarshal(breed_bytes, &breeddata)
+	json.Unmarshal(bytes, &catdata)
+	json.Unmarshal(category_bytes, &category)
+	json.Unmarshal(breed_bytes, &breeddata)
 
-	if errUnmarshal != nil {
-		log.Fatal(errUnmarshal)
-	}
+	// if errUnmarshal != nil {
+	// 	log.Fatal(errUnmarshal)
+	// }
 
-	if category_errUnmarshal != nil {
-		log.Fatal(category_errUnmarshal)
-	}
+	// if category_errUnmarshal != nil {
+	// 	log.Fatal(category_errUnmarshal)
+	// }
 
-	if breed_errUnmarshal != nil {
-		log.Fatal(breed_errUnmarshal)
-	}
+	// if breed_errUnmarshal != nil {
+	// 	log.Fatal(breed_errUnmarshal)
+	// }
 
 
 	c.Data["catdata"] = catdata
@@ -155,29 +170,29 @@ func (c *CatController) Get() {
 	req.Param("mime_types",mime_types)
 	req.Param("page",page)
 
-	response, err := req.Response()
+	response, _ := req.Response()
 
-	if err != nil {
-		log.Fatal(err)
-	}
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
 	// fmt.Println(response)
 
-	bytes, errRead := ioutil.ReadAll(response.Body)
+	bytes, _ := ioutil.ReadAll(response.Body)
 	
 
-	if errRead != nil {
-		log.Fatal(errRead)
-	}
+	// if errRead != nil {
+	// 	log.Fatal(errRead)
+	// }
 	// log.Print(string(bytes))
 
 	var catdata CatData
 
-	errUnmarshal := json.Unmarshal(bytes, &catdata)
+	json.Unmarshal(bytes, &catdata)
 
-	if errUnmarshal != nil {
-		log.Fatal(errUnmarshal)
-	}
+	// if errUnmarshal != nil {
+	// 	log.Fatal(errUnmarshal)
+	// }
 
 	// log.Printf("%+v", catdata)
 
