@@ -19,3 +19,14 @@
 ```
 
 ### For running the project:
+- Go to the project directory and run the following command:
+
+``` bash
+- bee run
+```
+- Hit this URL in your browser: http://localhost:8080/front
+
+## Project overview
+- Select your preferred option and cat images will be shown.
+
+![Screenshot from 2022-01-28 18-43-14](https://user-images.githubusercontent.com/56860950/151549175-5fa4ff99-4dd8-4339-8ccf-b768da25b0d3.png)
