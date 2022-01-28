@@ -174,7 +174,6 @@
 
     code: '',
 
-    // converting initialize data
     Extend: function(data) {
         data = data || {};
         Pagination.size = data.size || 300;
@@ -182,30 +181,25 @@
         Pagination.step = data.step || 3;
     },
 
-    // add pages by number (from [s] to [f])
     Add: function(s, f) {
         for (var i = s; i < f; i++) {
             Pagination.code += '<a onclick="paginationClick('+i+')">' + i + '</a>';
         }
     },
 
-    // add last page with separator
     Last: function() {
         Pagination.code += '<i>...</i><a onclick="paginationClick('+Pagination.size+')">' + Pagination.size + '</a>';
     },
 
-    // add first page with separator
     First: function() {
         Pagination.code += '<a onclick="paginationClick(1)">1</a><i>...</i>';
     },
 
-    // change page
     Click: function() {
         Pagination.page = +this.innerHTML;
         Pagination.Start();
     },
 
-    // previous page
     Prev: function() {
         Pagination.page--;
         if (Pagination.page < 1) {
@@ -214,7 +208,6 @@
         Pagination.Start();
     },
 
-    // next page
     Next: function() {
         Pagination.page++;
         if (Pagination.page > Pagination.size) {
@@ -223,7 +216,6 @@
         Pagination.Start();
     },
 
-    // binding pages
     Bind: function() {
         var a = Pagination.e.getElementsByTagName('a');
         for (var i = 0; i < a.length; i++) {
@@ -232,14 +224,12 @@
         }
     },
 
-    // write pagination
     Finish: function() {
         Pagination.e.innerHTML = Pagination.code;
         Pagination.code = '';
         Pagination.Bind();
     },
 
-    // find pagination type
     Start: function() {
         if (Pagination.size < Pagination.step * 2 + 6) {
             Pagination.Add(1, Pagination.size + 1);
@@ -260,20 +250,18 @@
         Pagination.Finish();
     },
 
-    // binding buttons
     Buttons: function(e) {
         var nav = e.getElementsByTagName('a');
-        nav[0].addEventListener('click', Pagination.Prev, false);
-        nav[1].addEventListener('click', Pagination.Next, false);
+        // nav[0].addEventListener('click', Pagination.Prev, false);
+        // nav[1].addEventListener('click', Pagination.Next, false);
     },
 
-    // create skeleton
     Create: function(e) {
 
         var html = [
-            '<a>&#9668;</a>', // previous button
-            '<span></span>',  // pagination container
-            '<a>&#9658;</a>'  // next button
+            // '<a>&#9668;</a>', 
+            '<span></span>', 
+            // '<a>&#9658;</a>'
         ];
 
         e.innerHTML = html.join('');
@@ -281,7 +269,7 @@
         Pagination.Buttons(e);
       },
 
-      // init
+
       Init: function(e, data) {
           Pagination.Extend(data);
           Pagination.Create(e);
@@ -291,9 +279,9 @@
 
     var init = function() {
     Pagination.Init(document.getElementById('pagination'), {
-        size: 30, // pages size
-        page: 1,  // selected page
-        step: 3   // pages before and after current
+        size: 30, 
+        page: 1, 
+        step: 3  
     });
     };
 
@@ -324,7 +312,7 @@
 
             if(data.length == 0){
               html_data += '<div class="col-md-12 mb-2 text-center">',
-              html_data += '<h1>No images found!</h1>',
+              html_data += '<h1>No image found!</h1>',
               html_data += '</div>'
 
               $("#result").html(html_data);
@@ -395,7 +383,7 @@
 
                   if(data.length == 0){
                     html_data += '<div class="col-md-12 mb-2 text-center">',
-                    html_data += '<h1>No images found!</h1>',
+                    html_data += '<h1>No image found!</h1>',
                     html_data += '</div>'
 
                     $("#result").html(html_data);
@@ -432,7 +420,6 @@
           $(document).on('click', 'button', function() {
 
               $page = document.getElementById("moreButton").value = parseInt($('#moreButton').val())+1;
-              console.log($page)
 
               $('#loading').show();
               $('#result').hide();
@@ -449,7 +436,7 @@
 
                   if(data.length == 0){
                     html_data += '<div class="col-md-12 mb-2 text-center">',
-                    html_data += '<h1>No images found!</h1>',
+                    html_data += '<h1>No image found!</h1>',
                     html_data += '</div>'
 
                     $("#result").html(html_data);
