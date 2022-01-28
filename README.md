@@ -30,3 +30,7 @@
 - Select your preferred option and cat images will be shown.
 
 ![Screenshot from 2022-01-28 18-43-14](https://user-images.githubusercontent.com/56860950/151549175-5fa4ff99-4dd8-4339-8ccf-b768da25b0d3.png)
+
+- You can sort the images in ascending/descending order and access them all in pagination mode.
+
+![Screenshot from 2022-01-28 18-50-35](https://user-images.githubusercontent.com/56860950/151550027-defa95da-2479-4269-9509-d43d3cb23a91.png)
