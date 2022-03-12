@@ -42,6 +42,13 @@ export GOBIN="/home/diptoprodipto/go/bin"
 ``` bash
 - bee run
 ```
+- In case of "missing go.sum entry" error run:
+
+```bash
+- go mod tidy
+- More on this error: https://stackoverflow.com/questions/67203641/missing-go-sum-entry-for-module-providing-package-package-name
+```
+
 - Hit this URL in your browser: http://localhost:8080/front
 
 ## Project overview
