@@ -36,6 +36,7 @@ export GOBIN="/home/diptoprodipto/go/bin"
 
 - Reboot your machine.
 - Resource: https://enlear.academy/how-to-install-beego-in-ubuntu-500136665843
+- Resource: https://gist.github.com/linuxfemale/0fd614cf1e30b13ccedf1ca9544aaaf5
 
 ### For running the project:
 - Go to the project directory and run the following command:
