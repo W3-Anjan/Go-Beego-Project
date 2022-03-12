@@ -11,12 +11,30 @@
 - Go to this website and follow the instructions according to your OS: https://go.dev/doc/install
 
 ### Beego installation:
+- Edit the .profile file by running the following command:
+
+```bash
+- sudo nano ~/.profile
+```
+
+- Add the following paths at the end of .profile file.
+
+```bash
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/home/diptoprodipto/go/bin
+
+export GOPATH="/home/diptoprodipto/go/"
+export GOBIN="/home/diptoprodipto/go/bin"
+```
+
 - Run the following commands on your terminal:
 
 ``` bash
 - go get -u github.com/beego/beego/v2
 - go get -u github.com/beego/bee/v2
 ```
+
+- Reboot your machine.
 
 ### For running the project:
 - Go to the project directory and run the following command:
